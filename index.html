@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="RoboAgent">
+    <meta name="image" content="https://robopen.github.io/cover.png">
+    <meta name="keywords" content="large-scale robot learning robotic dataset">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="icon" type="image/x-icon" href="media/roboagent.png" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>HandsOnVLM: Vision-Language Models for Hand-Object Interaction Prediction
+    </title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://robopen.github.io/imgs/roboagent_webpreview.png" />
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:url" content="https://robopen.github.io/index.html" />
+    <meta property="og:title" content="RoboAgent" />
+    <meta property="og:description"
+        content="Towards Sample Efficient Robot Manipulation with Semantic Augmentations and Action Chunking" />
+
+    <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RoboAgent" />
+    <meta name="twitter:description"
+        content="Towards Sample Efficient Robot Manipulation with Semantic Augmentations and Action Chunking" />
+
+    <link rel="stylesheet" href="index.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Source+Sans+3:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!--ANALYTICS TAG-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-44241506-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { window.dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-44241506-1');
+    </script>
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-carousel.js"></script>
+    <script src="./static/js/index.js"></script>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const videoElement = document.getElementById('bg-video');
+
+        // When the video metadata is loaded
+        videoElement.addEventListener('loadedmetadata', function () {
+            videoElement.style.opacity = 1.0;
+        });
+    });
+
+    window.addEventListener("scroll", function () {
+        let imageDiv = document.querySelector('.full-page-image');
+        const videoElement = document.getElementById('bg-video');
+        if (window.scrollY > 75) {
+            videoElement.style.opacity = 0;
+        }
+        // Check if page is scrolled
+        if (window.scrollY > 50) { // You can adjust this value based on your requirement
+            imageDiv.classList.add('banner-state');
+            imageDiv.classList.add('ncont');
+            imageDiv.style.backgroundImage = `url(media/small_banner.png)`;
+        };
+    });
+
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+
+</script>
+
+<body class="vsc-initialized">
+<!--    <div class="full-page-image">-->
+
+<!--        <video id="bg-video" autoplay loop muted playsinline>-->
+<!--            <source src="media/big_banner.mp4" type="video/mp4">-->
+<!--            Your browser does not support the video tag.-->
+<!--        </video>-->
+<!--        &lt;!&ndash; You can add an overlay and content inside the container &ndash;&gt;-->
+<!--        <div class="orange"></div>-->
+
+<!--        <div class="jay" style="padding: 0 20px">-->
+<!--            <h1 style="font-family: Poppins; font-size: 250%;">RoboAgent: A universal agent with 12 Skills</h1>-->
+<!--            <p style="font-family: Poppins; font-size: 100%;">Universal RoboAgent exhibiting its skills across diverse-->
+<!--                tasks in unseen scenarios</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- <div class="content is-centered has-text-centered" style="margin-right: 20%; margin-left: 20%; "> -->
+    <div class="content is-centered has-text-centered">
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered">
+                        <div class="column has-text-centered">
+                            <h2 class="title is-1 publication-title">
+                                <strong>HandsOnVLM</strong>
+                            </h2>
+                            <h2 class="subtitle" style="font-family: 'Source Sans 3', sans-serif; font-weight: 300;">
+                                <!-- <h2 style="font-family: 'Poppins', sans-serif; font-weight: 100;"> -->
+                                <strong>
+                                    Vision-Language Models for Hand-Object Interaction Prediction
+                                </strong>
+                            </h2>
+                            <h6 class="subtitle" style="font-family: 'Source Sans 3', sans-serif; font-weight: 50;">
+                                <!-- <h2 style="font-family: 'Poppins', sans-serif; font-weight: 100;"> -->
+<!--                                <strong style="color: red;">-->
+<!--                                    Accepted at <a href="https://2024.ieee-icra.org/" style="color: red;">2024 IEEE International Conference on-->
+<!--                                    Robotics and Automation</a>-->
+<!--                                </strong>-->
+                            </h6>
+                            <div class="is-size-5 publication-authors">
+                                Anonymous Authors
+                            </div>
+
+                            <div class="column has-text-centered">
+                                <div class="publication-links">
+                                    <span class="link-block">
+                                        <a href="media/roboagent.pdf"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank">
+                                            <span class="icon">
+                                                <i class="fa fa-file-pdf-o" style="font-size:24px"></i>
+                                            </span>
+                                            <span>Paper</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/pdf/2309.01918.pdf"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank">
+                                            <span class="icon">
+                                                <i class="ai ai-arxiv" style="font-size:24px"></i>
+                                            </span>
+                                            <span>arXiv</span>
+                                        </a>
+                                    </span>
+
+                                    <span class="link-block">
+                                        <a href="https://github.com/robopen/roboagent/"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank">
+                                            <span class="icon">
+                                                <i class="fa fa-github" style="font-size:24px"></i>
+                                            </span>
+                                            <span>Code</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://robopen.github.io/roboset" target="_blank"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fa fa-database" style="font-size:24px"></i>
+                                            </span>
+                                            <span>RoboSet</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://robopen.github.io/supplementary.html" target="_blank"
+                                            class="external-link button is-normal is-rounded is-dark">
+                                            <span class="icon">
+                                                <i class="fa fa-video-camera" style="font-size: 24px;"></i>
+                                            </span>
+                                            <span>Supplementary Videos</span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container is-max-desktop">
+        <div class="content is-centered has-text-centered">
+            <div class="column has-text-justified">
+                <h2 class="title is-3">Abstract</h2>
+                <!-- Make central claim -->
+                <!-- Add videos highlighting results-->
+                <!-- Video caption -->
+                <p>
+                    How can we predict future interaction trajectories of human hands in a scene given
+                high-level colloquial task specifications in the form of natural language? In this
+                paper, we extend the classic hand trajectory prediction task to two tasks involving
+                explicit or implicit language queries. Our proposed tasks require extensive under-
+                standing of human daily activities and reasoning abilities about what is happening
+                next given cues from the current scene. We also develop new benchmarks to eval-
+                uate the proposed two tasks, Vanilla Hand Prediction (VHP) and Reasoning-Based
+                Hand Prediction (RBHP). We enable solving these tasks by integrating high-level
+                world knowledge and reasoning capabilities of Vision-Language Models (VLMs)
+                with the auto-regressive nature of low-level ego-centric hand trajectories. Our
+                model, HandsOnVLM is a novel VLM that can generate textual responses and pro-
+                duce future hand trajectories through natural-language conversations. Our exper-
+                iments show that HandsOnVLM outperforms existing task-specific methods and
+                other VLM baselines on proposed tasks, and demonstrates its ability to effectively
+                utilize world knowledge for reasoning about low-level human hand trajectories
+                based on the provided context.
+                </p>
+            </div>
+        </div>
+    </div>
+
+        <div class="container is-max-desktop">
+        <div class="content is-centered has-text-centered">
+            <div class="column has-text-justified">
+                <h2 class="title is-3">Method Overview</h2>
+                <!-- Make central claim -->
+                <!-- Add videos highlighting results-->
+                <!-- Video caption -->
+                <p>
+                HandsOnVLM is a video-based VLM with the capability of predicting future hand trajectories given
+                a video context and language instructions. There are three key components of HandsOnVLM’s
+                architecture: (1) SlowFast tokens to capture temporal information at fine temporal resolution, (2)
+                hand representation using an augmented vocabulary of &lt;HAND&gt; token, and (3) iterative position
+                encodings to enable auto-regressive trajectory training and inference. In training stage, we fine-tune
+                a pre-trained VLM by combining next-token prediction loss and trajectory loss.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="content is-centered has-text-centered">
+                <!-- Dive into Details -->
+                <div class="column">
+                    <h2 class="title is-3"> HandsOnVLM: Hand-Object Interaction Prediction Vision-language Model</h2>
+
+                    <div class="column has-text-left">
+
+
+                        HandsOnVLM is a video-based VLM with the capability of predicting future hand trajectories given a video context and language instructions.
+                        There are three key components of HandsOnVLM’s architecture:
+
+                        <ul>
+                            <li>
+                                <strong>SlowFast Token Compression:</strong> HandsOnVLM interpret temporal information
+                                at a fine resolution as well as capture spatial relationships.
+                                We adapt SlowFast tokens that encode both slow and fast features from the egocentric video.
+                            </li>
+                            <li>
+                                <strong>Hand as Embedding:</strong> HandsOnVLM extend the existing vocabulary with
+                                a new &lt;HAND&gt; token to represent hand in the language space.
+                                Experiments find that this representation is crucial for the model to generate accurate hand trajectories.
+                            </li>
+                            <li>
+                                <strong>Iterative Position Encoding:</strong> During the inference stage,
+                                when &lt;HAND&gt; is predicted as the next token, we decode it immediately.
+                                This decoded position is then encoded into corresponding embedding for following prediction
+                                rounds. This way ensure that each subsequent prediction is conditioned on all previously
+                                predicted hand positions.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="column is-centered is-vcentered has-text-centered">
+                         <video autoplay="" muted="" loop="" playsinline="" width="100%">
+                            <source src="./media/output.mp4" type="video/mp4">
+                        </video>
+                        Overview of the HandsOnVLM architecture.
+                    </div>
+                    <br>
+
+                </div>
+
+
+
+                    <h2 class="title is-3"> RBHP: Reasoning-based Hand Prediction Task</h2>
+
+                    <p>
+                        We introduce the Reasoning-based Hand Prediction
+                        (RBHP) task. Instead of utilizing explicit instructions to directly predict the hand motion, here the
+                        system is required to reason about it with implicit instructions. We define implicit instructions as
+                        colloquial language instructions that provide sufficient information for inferring the intended human
+                        hand action through reasoning, without explicitly naming the target object or action.
+                    </p>
+                    <div class="column overlay-image has-text-centered">
+                        <img src="imgs/1.png">
+                        Illustration of the annotation pipeline for the RBHP task.
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container is-max-desktop">
+        <div class="content is-centered has-text-centered">
+            <div class="column has-text-justified is-vcentered">
+                <h2>Visualization</h2>
+                <!-- EK100 dataset -->
+                <section class="hero is-light is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h5 id="vidtit">
+                                <b>
+                                    Epic Kitchen Dataset
+                                </b>
+                            </h5>
+                            <!-- 17 -->
+                            <div id="results-carousel" class="carousel results-carousel">
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/EK100/17_out.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            Where should my hand move to if I want to grasp the rectangular gray object resting on the stovetop?
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 22 -->
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/EK100/22_out.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            Where should my hand move to if I want to transfer a delicious pizza from its parchment paper to a decorative dish?
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 87 -->
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/EK100/87_out.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            What is the recommended hand movement for picking up the transparent bottle resting on the wooden surface?
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 113 -->
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/EK100/113_out.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            Where should my hand move to if I want to remove the cork from the top of the dark-colored bottle?
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- FPGA dataset -->
+                <section class="hero is-light is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h5 id="vidtit">
+                                <b>
+                                    FPGA Dataset
+                                </b>
+                            </h5>
+                            <div id="results-carousel" class="carousel results-carousel">
+                                <!-- 40 -->
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/FPGA/40_out.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            Can you provide the hand trajectory for flip sponge?
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <!-- 156 -->
+                            <div class="card" id="slide-open">
+                                <div class="card-image">
+                                    <video poster="" controls muted loop playsinline height="100%">
+                                        <source
+                                            src="media/FPGA/156_out.mp4"
+                                            type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="card-content">
+                                    <div class="item__title" style="text-align: center;">
+                                        Can you provide the hand trajectory for clean glasses?
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 192 -->
+                            <div class="card" id="slide-open">
+                                <div class="card-image">
+                                    <video poster="" controls muted loop playsinline height="100%">
+                                        <source
+                                            src="media/FPGA/192_out.mp4"
+                                            type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="card-content">
+                                    <div class="item__title" style="text-align: center;">
+                                        Can you provide the hand trajectory for stir?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- H2O dataset -->
+                <section class="hero is-light is-small">
+                    <div class="hero-body">
+                        <div class="container">
+                            <h5 id="vidtit">
+                                <b>
+                                    FPGA Dataset
+                                </b>
+                            </h5>
+                            <div id="results-carousel" class="carousel results-carousel">
+                                <div class="card" id="slide-open">
+                                    <div class="card-image">
+                                        <video poster="" controls muted loop playsinline height="100%">
+                                            <source
+                                                src="media/EK100/output.mp4"
+                                                type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="item__title" style="text-align: center;">
+                                            What is the recommended hand movement for returning a blade to its proper place?
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+            <div class="column has-text-centered">
+                <div class="publication-links">
+                <div class="column has-text-left">
+                    <!-- <h2 class="title is-3">BibTeX</h2> -->
+                    <pre><code id="p1">
+                        @misc{bharadhwaj2023roboagent,
+                            title={RoboAgent: Generalization and Efficiency in Robot Manipulation via Semantic Augmentations and Action Chunking},
+                            author={Homanga Bharadhwaj and Jay Vakil and Mohit Sharma and Abhinav Gupta and Shubham Tulsiani and Vikash Kumar},
+                            year={2023},
+                            eprint={2309.01918},
+                            archivePrefix={arXiv},
+                            primaryClass={cs.RO}
+                      }
+                    </code></pre>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            Website template inspired by <a href="https://github.com/nerfies/nerfies.github.io">Nerfies:
+                                Deformable Neural Radiance Fields</a> and <a
+                                href="https://robotics-transformer2.github.io/">RT-2: Vision-Language-Action Models</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
