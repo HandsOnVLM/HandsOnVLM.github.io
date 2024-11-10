@@ -224,11 +224,7 @@
                     </div>
                 </div>
 
-                
-                <h2 class="title is-3">Abstract</h2>
-                <!-- Make central claim -->
-                <!-- Add videos highlighting results-->
-                <!-- Video caption -->
+            
                 <p>
                     How can we predict future interaction trajectories of human hands in a scene given
                 high-level colloquial task specifications in the form of natural language? In this
@@ -251,24 +247,7 @@
         </div>
     </div>
 
-        <div class="container is-max-desktop">
-        <div class="content is-centered has-text-centered">
-            <div class="column has-text-justified">
-                <h2 class="title is-3">Method Overview</h2>
-                <!-- Make central claim -->
-                <!-- Add videos highlighting results-->
-                <!-- Video caption -->
-                <p>
-                HandsOnVLM is a video-based VLM with the capability of predicting future hand trajectories given
-                a video context and language instructions. There are three key components of HandsOnVLM’s
-                architecture: (1) SlowFast tokens to capture temporal information at fine temporal resolution, (2)
-                hand representation using an augmented vocabulary of &lt;HAND&gt; token, and (3) iterative position
-                encodings to enable auto-regressive trajectory training and inference. In training stage, we fine-tune
-                a pre-trained VLM by combining next-token prediction loss and trajectory loss.
-                </p>
-            </div>
-        </div>
-    </div>
+
 
 
     <section class="section">
@@ -276,13 +255,17 @@
             <div class="content is-centered has-text-centered">
                 <!-- Dive into Details -->
                 <div class="column">
-                    <h2 class="title is-3"> HandsOnVLM: Hand-Object Interaction Prediction Vision-language Model</h2>
+                    <h2 class="title is-3"> HandsOnVLM Architecture</h2>
 
                     <div class="column has-text-left">
 
 
-                        HandsOnVLM is a video-based VLM with the capability of predicting future hand trajectories given a video context and language instructions.
-                        There are three key components of HandsOnVLM’s architecture:
+     HandsOnVLM is a video-based VLM with the capability of predicting future hand trajectories given
+                a video context and language instructions. There are three key components of HandsOnVLM’s
+                architecture: (1) SlowFast tokens to capture temporal information at fine temporal resolution, (2)
+                hand representation using an augmented vocabulary of &lt;HAND&gt; token, and (3) iterative position
+                encodings to enable auto-regressive trajectory training and inference. In training stage, we fine-tune
+                a pre-trained VLM by combining next-token prediction loss and trajectory loss.
 
                         <ul>
                             <li>
@@ -341,7 +324,7 @@
     <div class="container is-max-desktop">
         <div class="content is-centered has-text-centered">
             <div class="column has-text-justified is-vcentered">
-                <h2>Visualization</h2>
+                <h2>Qualitative Results</h2>
                 <!-- EK100 dataset -->
                 <section class="hero is-light is-small">
                     <div class="hero-body">
